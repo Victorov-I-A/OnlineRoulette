@@ -1,3 +1,3 @@
 fun main(args: Array<String>) {
-    Server().start()
+    Server().start(4567)
 }

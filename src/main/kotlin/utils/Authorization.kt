@@ -1,6 +1,9 @@
+package utils
+
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.SignatureVerificationException
+import data.User
 
 
 val algorithm: Algorithm = Algorithm.HMAC256("OnlineRoulette")
@@ -16,7 +19,7 @@ object Authorization {
         .withClaim("password", user.password)
         .sign(algorithm)
 
-    fun checkToken(token: String): User? =
+    fun checkToken(token: String?): User? =
         try {
             verifier.verify(token).claims["name"]?.asString()?.let { UserDao.findByName(it) }
         } catch (e: SignatureVerificationException) {

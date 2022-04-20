@@ -1,16 +1,16 @@
+import logic.OnlineRoulette
+import utils.*
+import data.*
 import com.google.gson.*
 import spark.Request
 import spark.Spark.*
 
 
-const val GAMBLE_RESULT = "{ \"result\": %d }"
-const val USER_RESULT = "{ \"result\": %d, \"win\": %d }"
-
 class Server {
-    fun start() {
+    fun start(port: Int) {
         val onlineRoulette = OnlineRoulette()
 
-        port(4567)
+        port(port)
 
         path("/auth") {
             post("/login") { request, response ->
@@ -63,7 +63,7 @@ class Server {
                     if (user.admin) {
                         onlineRoulette.gamble()
                         response.status(200)
-                        return@put JsonParser.parseString(GAMBLE_RESULT.format(onlineRoulette.getResult())).asJsonObject
+                        return@put Gson().toJson(onlineRoulette.getResult())
                     } else
                         halt(403, "You do not have permission to this action")
                 } else
@@ -74,7 +74,7 @@ class Server {
                 val user = authentication(request)
                 if (authorization(request, user)) {
                     response.status(200)
-                    return@get JsonParser.parseString(USER_RESULT.format(onlineRoulette.getResult(), onlineRoulette.getUserResult(user))).asJsonObject
+                    return@get Gson().toJson(onlineRoulette.getUserResult(user))
                 } else
                     halt(401, "User is not logged in")
             }
@@ -86,7 +86,8 @@ class Server {
         Authorization.checkToken(token).let {
             if (it == null)
                 throw halt(400, "Your token is missing or invalid")
-            else return it
+            else
+                return it
         }
     }
 
