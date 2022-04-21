@@ -2,7 +2,6 @@ package utils
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.exceptions.SignatureVerificationException
 import data.User
 
 
@@ -22,7 +21,7 @@ object Authorization {
     fun checkToken(token: String?): User? =
         try {
             verifier.verify(token).claims["name"]?.asString()?.let { UserDao.findByName(it) }
-        } catch (e: SignatureVerificationException) {
+        } catch (e: Exception) {
             null
         }
 }
