@@ -1,5 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'application'
 }
 
 group = 'me.ilia'
@@ -30,4 +31,17 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.21'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.auth0:java-jwt:3.10.3'
+}
+
+application {
+    mainClassName = 'MainKt'
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    destinationDirectory.set(file("$projectDir/build"))
 }
