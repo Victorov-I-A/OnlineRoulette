@@ -1,6 +1,26 @@
 version: "3"
 services:
-  web:
+  server:
+    container_name: roulette_server
+    environment:
+      - PGDATABASE=roulette
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGHOST=roulette_db
     build: .
     ports:
       - "8010:4567"
+    depends_on:
+      - db
+  db:
+    container_name: roulette_db
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=roulette
+    volumes:
+      - some_data:/var/lib/postgresql/data
+
+volumes:
+  some_data: {}

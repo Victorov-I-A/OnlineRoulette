@@ -1,5 +1,6 @@
 import com.google.gson.Gson
 import data.User
+import db.DBFactory
 import logic.OnlineRoulette
 import spark.Spark.*
 import utils.Authorization
@@ -12,6 +13,10 @@ val onlineRoulette = OnlineRoulette()
 fun main(args: Array<String>) {
 
     port(4567)
+
+    DBFactory.init()
+
+    println(UserDao.checkUser(User("Ilia", "qwerty123", true)))
 
     webSocket("/roulette", WebSocketHandler::class.java)
     init()

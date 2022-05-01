@@ -1,18 +1,24 @@
 package utils
 
 import data.User
+import db.Users
+import db.dbQuery
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.select
 
 object UserDao {
-    private val users = listOf(
-        User(name = "Ilia", password = "qwerty123", admin = true),
-        User(name = "player1", password = "123", admin = false),
-        User(name = "player2", password = "123", admin = false),
-        User(name = "player3", password = "123", admin = false)
-    )
 
-    fun findByName(name: String): User? {
-        return users.find { it.name == name }
+    fun findByName(name: String): User = dbQuery {
+        Users.select { Users.name eq name }.mapNotNull { toUser(it) }.first()
     }
 
-    fun checkUser(user: User?): Boolean = user != null && users.contains(user)
+    fun checkUser(user: User?): Boolean =
+        user != null && dbQuery { Users.select { Users.name eq user.name }.mapNotNull { toUser(it) }.isNotEmpty() }
+
+    private fun toUser(row: ResultRow): User =
+        User(
+            name = row[Users.name],
+            password =  row[Users.password],
+            admin = row[Users.admin]
+        )
 }
