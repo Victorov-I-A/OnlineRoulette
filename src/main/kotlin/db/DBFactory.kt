@@ -11,7 +11,7 @@ object DBFactory {
     private object DBCredentials {
         const val USER = "postgres"
         const val PASSWORD = "postgres"
-        const val URL = "jdbc:postgresql://db:5432/roulette"
+        const val URL = "jdbc:postgresql://roulette_db:5432/roulette"
     }
 
     fun init() {

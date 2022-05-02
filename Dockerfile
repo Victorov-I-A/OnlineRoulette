@@ -8,4 +8,6 @@ FROM openjdk:16.0.2
 ENV APP_HOME=/OnlineRoulette/
 WORKDIR /OnlineRoulette
 COPY --from=build $APP_HOME/build/OnlineRoulette-1.0-SNAPSHOT.jar ./
+COPY src/main/resources ./resources
+
 ENTRYPOINT ["java", "-jar", "OnlineRoulette-1.0-SNAPSHOT.jar"]
