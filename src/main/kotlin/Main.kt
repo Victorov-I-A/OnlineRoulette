@@ -22,7 +22,11 @@ fun main(args: Array<String>) {
     init()
 
     post("/auth") { request, response ->
+        println(request.body())
         val user = Gson().fromJson(request.body(), User::class.java)
+        println(user.name)
+        println(user.password)
+        println(user.admin)
         if (UserDao.checkUser(user)) {
             if (!WebSocketHandler.userSessions.containsValue(user)) {
                 response.header("Authorization", "Bearer " + Authorization.generateToken(user))
