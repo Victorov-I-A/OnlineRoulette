@@ -4,6 +4,7 @@ import data.User
 import db.Users
 import db.dbQuery
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 
 object UserDao {
@@ -13,7 +14,10 @@ object UserDao {
     }
 
     fun checkUser(user: User?): Boolean =
-        user != null && dbQuery { Users.select { Users.name eq user.name }.mapNotNull { toUser(it) }.isNotEmpty() }
+        user != null && dbQuery {
+            Users.select { (Users.name eq user.name) and (Users.password eq user.password) and (Users.admin eq user.admin) }
+                .mapNotNull { toUser(it) }
+                .isNotEmpty() }
 
     private fun toUser(row: ResultRow): User =
         User(

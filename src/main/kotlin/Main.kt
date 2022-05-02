@@ -14,8 +14,6 @@ fun main(args: Array<String>) {
 
     staticFileLocation("/public")
 
-    //port(4567)
-
     DBFactory.init()
 
     webSocket("/roulette", WebSocketHandler::class.java)
@@ -23,6 +21,8 @@ fun main(args: Array<String>) {
 
     post("/auth") { request, response ->
         val user = Gson().fromJson(request.body(), User::class.java)
+        println(user)
+        println(user == null)
         if (UserDao.checkUser(user)) {
             if (!WebSocketHandler.userSessions.containsValue(user)) {
                 response.header("Authorization", "Bearer " + Authorization.generateToken(user))

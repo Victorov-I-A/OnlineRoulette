@@ -35,7 +35,6 @@ dependencies {
     implementation "org.jetbrains.exposed:exposed-dao:0.38.2"
     implementation "org.jetbrains.exposed:exposed-jdbc:0.38.2"
     implementation "org.jetbrains.exposed:exposed-java-time:0.38.2"
-    implementation "com.h2database:h2:2.1.212"
     implementation 'org.flywaydb:flyway-core:8.5.9'
     implementation 'org.jooq:jooq:3.16.6'
     implementation "com.zaxxer:HikariCP:5.0.1"
