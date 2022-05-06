@@ -29,8 +29,8 @@ compileTestKotlin {
 dependencies {
     implementation 'com.sparkjava:spark-core:2.7.2'
     implementation 'org.slf4j:slf4j-simple:1.7.21'
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.auth0:java-jwt:3.10.3'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.auth0:java-jwt:3.19.1'
     implementation "org.jetbrains.exposed:exposed-core:0.38.2"
     implementation "org.jetbrains.exposed:exposed-dao:0.38.2"
     implementation "org.jetbrains.exposed:exposed-jdbc:0.38.2"
@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.jooq:jooq:3.16.6'
     implementation "com.zaxxer:HikariCP:5.0.1"
     implementation "org.postgresql:postgresql:42.3.3"
+    implementation "io.ktor:ktor-network-tls-certificates:2.0.0"
 }
 
 application {

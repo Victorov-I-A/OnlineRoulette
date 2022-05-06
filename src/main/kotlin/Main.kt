@@ -11,8 +11,9 @@ val onlineRoulette = OnlineRoulette()
 
 
 fun main(args: Array<String>) {
-
     staticFileLocation("/public")
+
+    secure("deploy/keystore.jks", "password", null, null);
 
     DBFactory.init()
 
