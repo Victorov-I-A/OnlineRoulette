@@ -5,6 +5,8 @@ import logic.OnlineRoulette
 import spark.Spark.*
 import utils.Authorization
 import utils.UserDao
+import kotlin.io.path.Path
+import kotlin.io.path.isReadable
 
 
 val onlineRoulette = OnlineRoulette()
@@ -13,7 +15,7 @@ val onlineRoulette = OnlineRoulette()
 fun main(args: Array<String>) {
     staticFileLocation("/public")
 
-    secure("deploy\\keystore.jks", "password", null, null);
+    secure("deploy/keystore.jks", "password", null, null)
 
     DBFactory.init()
 
