@@ -7,6 +7,13 @@ services:
       - "4567:4567"
     depends_on:
       - roulette_db
+  nginx:
+    image: nginx:mainline-alpine
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
   roulette_db:
     container_name: roulette_db
     image: postgres:14
